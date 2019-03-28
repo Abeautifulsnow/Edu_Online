@@ -3,6 +3,7 @@ __author__ = 'dapeng'
 __date__ = '18-10-16 下午3:12'
 from random import Random
 from django.core.mail import send_mail
+from MxOnline.celery import app
 from MxOnline.settings import EMAIL_FROM
 
 from users.models import EmailVerifyRecord
@@ -18,6 +19,7 @@ def random_str(randomlength=8):
     return str
 
 
+@app.task
 def send_register_email(email, send_type='register'):
     email_record = EmailVerifyRecord()
     if send_type == 'update_email':
