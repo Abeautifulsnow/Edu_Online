@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-from django.views.generic import View
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views.generic import View
 from django.db.models import Q
-
-from pure_pagination import Paginator, PageNotAnInteger
+from django.core.paginator import PageNotAnInteger, Paginator
+from django.http import HttpResponse
 
 from .models import Course, CourseResource, Video
-from operation.models import UserFavorite, CourseComments, UserCourse
+from operation.models import UserCourse, UserFavorite, CourseComments
 from utils.mixin_utils import LoginRequiredMixin
 
 # Create your views here.
+
 
 class CourseListView(View):
     """
@@ -26,11 +24,11 @@ class CourseListView(View):
         # 搜索功能
         search_keywords = request.GET.get('keywords', '')
         if search_keywords:
-            all_courses = all_courses.filter(Q(name__icontains=search_keywords)|Q(desc__icontains=search_keywords)|
+            all_courses = all_courses.filter(Q(name__icontains=search_keywords) | Q(desc__icontains=search_keywords) |
                                              Q(detail__icontains=search_keywords))
 
         # 最热门或参与人数排序
-        sort = request.GET.get('sort', "")
+        sort = request.GET.get('sort', '')
         if sort:
             if sort == 'students':
                 all_courses = all_courses.order_by('-students')
@@ -45,7 +43,7 @@ class CourseListView(View):
         except PageNotAnInteger:
             page = 1
         # Provide Paginator with the request object for complete querystring generation
-        p = Paginator(all_courses, 5, request=request)
+        p = Paginator(all_courses, 5)
         courses = p.page(page)
 
         context = {
@@ -53,7 +51,7 @@ class CourseListView(View):
             'sort': sort,
             'hot_courses': hot_courses
         }
-        return render(request, 'course-list.html', context)
+        return render(request, 'courses/course-list.html', context)
 
 
 class VideoPlay(View):
@@ -92,7 +90,7 @@ class VideoPlay(View):
             'relate_courses': relate_courses,
             'video': video
         }
-        return render(request, 'course-play.html', context)
+        return render(request, 'courses/course-play.html', context)
 
 
 class CourseDetailView(View):
@@ -108,7 +106,7 @@ class CourseDetailView(View):
         has_favor_course = False
         has_favor_org = False
 
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if UserFavorite.objects.filter(user=request.user, fav_id=course.id, fav_type=1):
                 has_favor_course = True
 
@@ -125,7 +123,7 @@ class CourseDetailView(View):
             'has_favor_course': has_favor_course,
             'has_favor_org': has_favor_org
         }
-        return render(request, 'course-detail.html', context)
+        return render(request, 'courses/course-detail.html', context)
 
 
 class CourseInfoView(LoginRequiredMixin, View):
@@ -163,7 +161,7 @@ class CourseInfoView(LoginRequiredMixin, View):
             'course_resources': all_resources,
             'relate_courses': relate_courses
         }
-        return render(request, 'course-video.html', context)
+        return render(request, 'courses/course-video.html', context)
 
 
 class CommentView(LoginRequiredMixin, View):
@@ -203,7 +201,7 @@ class CommentView(LoginRequiredMixin, View):
             'relate_courses': relate_courses
 
         }
-        return render(request, 'course-comment.html', context)
+        return render(request, 'courses/course-comment.html', context)
 
 
 class AddCommentView(View):

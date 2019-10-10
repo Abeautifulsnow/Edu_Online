@@ -1,11 +1,8 @@
-# -*- coding:utf-8 -*-
-__author__ = 'dapeng'
-__date__ = '18-10-15 下午6:09'
-
 from django import forms
 from captcha.fields import CaptchaField
 
 from .models import UserProfile
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(required=True)

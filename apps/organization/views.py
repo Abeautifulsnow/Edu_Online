@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.shortcuts import render
 from django.views.generic import View
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
@@ -74,7 +71,7 @@ class OrgView(View):
             'hot_orgs': hot_orgs,
             'sort': sort,
         }
-        return render(request, 'org-list.html', context)
+        return render(request, 'organization/org-list.html', context)
 
 
 class AddUserAskView(View):
@@ -89,6 +86,7 @@ class AddUserAskView(View):
             return HttpResponse('{"status": "success"}', content_type='application/json')
         else:
             return HttpResponse('{"status": "fail", "msg": "添加出错"}', content_type='application/json')
+
 
 class OrgHomeView(View):
     """
@@ -117,7 +115,7 @@ class OrgHomeView(View):
             'current_page': current_page,
             'has_fav': has_fav
         }
-        return render(request, 'org-detail-homepage.html', context)
+        return render(request, 'organization/org-detail-homepage.html', context)
 
 
 class OrgCourseView(View):
@@ -143,7 +141,7 @@ class OrgCourseView(View):
             'current_page': current_page,
             'has_fav': has_fav
         }
-        return render(request, 'org-detail-course.html', context)
+        return render(request, 'organization/org-detail-course.html', context)
 
 
 class OrgDescView(View):
@@ -164,7 +162,7 @@ class OrgDescView(View):
             'current_page': current_page,
             'has_fav': has_fav
         }
-        return render(request, 'org-detail-desc.html', context)
+        return render(request, 'organization/org-detail-desc.html', context)
 
 
 class OrgTeacherView(View):
@@ -189,7 +187,7 @@ class OrgTeacherView(View):
             'current_page': current_page,
             'has_fav': has_fav
         }
-        return render(request, 'org-detail-teachers.html', context)
+        return render(request, 'organization/org-detail-teachers.html', context)
 
 
 class AddFavView(View):
@@ -280,7 +278,7 @@ class TeacherListView(View):
             'sorted_teachers': sorted_teachers,
             'sort': sort
         }
-        return render(request, 'teachers-list.html', context)
+        return render(request, 'organization/teachers-list.html', context)
 
 
 class TeacherDeatailView(View):
@@ -313,4 +311,4 @@ class TeacherDeatailView(View):
             'has_teacher_faved': has_teacher_faved,
             'has_org_faved': has_org_faved
         }
-        return render(request, 'teacher-detail.html', context)
+        return render(request, 'organization/teacher-detail.html', context)

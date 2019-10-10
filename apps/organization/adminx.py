@@ -1,7 +1,3 @@
-# -*- coding:utf-8 -*-
-__author__ = 'dapeng'
-__date__ = '18-10-11 下午5:28'
-
 import xadmin
 
 from .models import CityDict, CourseOrg, Teacher
@@ -31,4 +27,3 @@ class TeacherAdmin(object):
 xadmin.site.register(CityDict, CityDictAdmin)
 xadmin.site.register(CourseOrg, CourseOrgAdmin)
 xadmin.site.register(Teacher, TeacherAdmin)
-

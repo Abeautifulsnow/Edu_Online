@@ -1,11 +1,10 @@
-# encoding:utf-8
-from __future__ import unicode_literals
 from datetime import datetime
-
-from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+
 class UserProfile(AbstractUser):
     nick_name = models.CharField(max_length=50, verbose_name='昵称', default='')
     birthday = models.DateField(verbose_name='生日', null=True, blank=True)
@@ -18,13 +17,13 @@ class UserProfile(AbstractUser):
         verbose_name = '用户信息'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return self.username
-
+    # 获取用户未读信息数量
     def unread_message_nums(self):
-        # 获取用户未读消息的数量
         from operation.models import UserMessage
         return UserMessage.objects.filter(user=self.id, has_read=False).count()
+
+    def __str__(self):
+        return self.username
 
 
 class EmailVerifyRecord(models.Model):
@@ -41,7 +40,7 @@ class EmailVerifyRecord(models.Model):
         verbose_name = '邮箱验证码'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return '{0}({1})'.format(self.code, self.email)
 
 
@@ -56,5 +55,5 @@ class Banner(models.Model):
         verbose_name = '轮播图'
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title

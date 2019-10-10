@@ -64,7 +64,7 @@ class UserAdmin(object):
     search_fields = ('username', 'first_name', 'last_name', 'email')
     ordering = ('username',)
     style_fields = {'user_permissions': 'm2m_transfer'}
-    model_icon = 'fa fa-user-circle'
+    model_icon = 'fa fa-user'
     relfield_style = 'fk-ajax'
 
     def get_field_attrs(self, db_field, **kwargs):

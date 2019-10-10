@@ -1,7 +1,3 @@
-# -*- coding:utf-8 -*-
-__author__ = 'dapeng'
-__date__ = '18-10-11 上午12:39'
-
 import xadmin
 from xadmin import views
 from xadmin.views.website import LoginView
