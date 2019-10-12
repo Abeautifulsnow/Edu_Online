@@ -109,7 +109,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'edu_online',
         'USER': 'root',
-        'PASSWORD': 'ln122920',
+        'PASSWORD': 'xxxxxxxx',
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'OPTIONS': {
@@ -169,8 +169,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # EMAIL配置
 EMAIL_HOST = 'smtp.189.cn'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = '15639936570@189.cn'
-EMAIL_HOST_PASSWORD = 'Lcp122920'
+EMAIL_HOST_USER = 'xxxxxxxxx@189.cn'
+EMAIL_HOST_PASSWORD = 'xxxxxxxx'
 EMAIL_SUBJECT_PREFIX = '【晨师教育平台】'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
