@@ -20,7 +20,7 @@ class Course(models.Model):
     learn_times = models.IntegerField(default=0, verbose_name='学习时长(分钟数)')
     students = models.IntegerField(default=0, verbose_name='学习人数')
     favor_nums = models.IntegerField(default=0, verbose_name='收藏人数')
-    image = models.ImageField(upload_to='courses/%Y/%m', verbose_name='封面图', max_length=100)
+    image = models.ImageField(upload_to='courses/%Y/%m', blank=True, verbose_name='封面图', max_length=100)
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     tag = models.CharField(default='', max_length=10, verbose_name='课程标签')
     you_need_know = models.CharField(max_length=300, verbose_name='课程须知', default='')

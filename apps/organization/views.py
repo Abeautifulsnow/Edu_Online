@@ -192,13 +192,15 @@ class OrgTeacherView(View):
 
 class AddFavView(View):
     """
-    用户收藏，用户取消收藏。使用ajax异步
+    用户收藏，用户取消收藏。前端使用ajax异步
     """
     def post(self, request):
         favor_id = request.POST.get('fav_id', 0)
         favor_type = request.POST.get('fav_type', 0)
-
-        if not request.user.is_authenticated():
+        # print(request.POST)   # request.POST返回的是一个字典数据集。<QueryDict: {'fav_id': ['1'], 'fav_type': ['1']}>
+        # print(type(request.POST))   # <class 'django.http.request.QueryDict'>
+        
+        if not request.user.is_authenticated:
             # 判断用户登录状态
             return HttpResponse('{"status": "fail", "msg": "用户未登录"}', content_type='application/json')
 
@@ -206,19 +208,21 @@ class AddFavView(View):
         if exist_records:
             # 如果记录已经存在，则表示用户取消收藏
             exist_records.delete()
-            # 删除后数量自减
+            # 删除后课程收藏数量自减
             if int(favor_type) == 1:
                 course = Course.objects.get(id=int(favor_id))
                 course.favor_nums -= 1
                 if course.favor_nums <= 0:
                     course.favor_nums = 0
                 course.save()
+            # 删除后课程机构收藏数量自减
             elif int(favor_type) == 2:
                 course_org = CourseOrg.objects.get(id=int(favor_id))
                 course_org.fav_nums -= 1
                 if course_org.fav_nums <= 0:
                     course_org.fav_nums = 0
                 course_org.save()
+            # 删除后教师收藏数量自减
             elif int(favor_type) == 3:
                 teacher = Teacher.objects.get(id=int(favor_id))
                 teacher.fav_nums -= 1
@@ -228,6 +232,7 @@ class AddFavView(View):
 
             return HttpResponse('{"status": "success", "msg": "收藏"}', content_type='application/json')
         else:
+            # 实例化UserFavorite()
             user_fav = UserFavorite()
             if int(favor_id) > 0 and int(favor_type) > 0:
                 user_fav.user = request.user

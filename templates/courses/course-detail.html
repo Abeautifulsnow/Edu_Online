@@ -158,12 +158,15 @@
 
 {% block custom_js %}
     <script type="text/javascript">
-    //收藏分享
+    //收藏分享，add_fav()定义。
     function add_fav(current_elem, fav_id, fav_type) {
+        // current_elem: 获取当前元素
+        // fav_id：收藏的id
+        // fav_type：收藏的类型
         $.ajax({
             cache: false,
             type: 'POST',
-            url:'{% url 'org:add_fav' %}',
+            url:'{% url 'org:add_fav' %}',  // 请求后端数据接口
             data:{'fav_id': fav_id, 'fav_type': fav_type},
             async: true,
             beforeSend: function (xhr, settings) {

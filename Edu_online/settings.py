@@ -109,7 +109,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'edu_online',
         'USER': 'root',
-        'PASSWORD': 'xxxxxxxx',
+        'PASSWORD': 'ln122920',
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'OPTIONS': {
@@ -187,3 +187,6 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 2,
     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
 }
+
+# slash配置
+APPEND_SLASH = False

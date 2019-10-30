@@ -209,7 +209,7 @@ class AddCommentView(View):
     用户发表评论
     """
     def post(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             # 判断用户登录状态
             return HttpResponse('{"status": "fail", "msg": "用户未登录"}', content_type='application/json')
 
